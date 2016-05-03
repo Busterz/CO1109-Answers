@@ -10,10 +10,10 @@
 ## Question 01
 
 #### Part A
-* (i) 13
+* (i) 12
 * (ii) 6
 * (iii) 6
-* (iv) 38
+* (iv) 39
 * (v) 0
 * (vi) infinite
 * (vii) 40
@@ -23,37 +23,40 @@
 #### Part B
 
 ```java
-int smallest = array[0];
-for (int i = 0; i < array.length; i++) {
-    if (smallest > array[i]) {
-        smallest = array[i];
+int smallestElement(int[] array) {
+    int smallest = array[0];
+    for (int i = 0; i < array.length; i++) {
+        if (smallest > array[i]) {
+            smallest = array[i];
+        }
     }
+    return smallest;
 }
 ```
 
 ### Part C
 
 ```java
-public static void main(String[] args){
-    Vector<String> v = new Vector<>();
-    v.add("10characters");
-    v.add("aaaaaaaaaa");
-    v.add("two");
-    v.add("e");
-    v.add("f");
-
+Vector<String> getShortestStrings(Vector<String> v) {
+    Vector<String> ret = new Vector<>();
     int shortest = v.get(0).length();
-    for (int i = 0; i < v.size(); i++) {
+
+    // This loop goes through the given Vector to find the length of the
+    // Shortest String
+    for (int i = 1; i < v.size(); i++) {
         if (shortest > v.get(i).length()) {
             shortest = v.get(i).length();
         }
     }
-
-    for ( int i = 0; i < v.size(); i++) {
+    // The following loop looks through the vector to collect
+    // elements whose length == shortest into the Vector ret
+    for (int i = 0; i < v.size(); i++) {
         if (v.get(i).length() == shortest) {
-            System.out.println(v.get(i));
+            ret.add(v.get(i));
         }
-    }        
+    }
+
+    return ret;
 }
 ```
 
@@ -63,38 +66,42 @@ public static void main(String[] args){
 
 #### Part A
 * (i) `154`
-* (ii) the variable `s` was expecting an integer as value, but a `String` was assigned instead.
-* (iii) variable `t` is declared twice with different values.
+* (ii) The variable `s` is declared as an `int`, but a `String` value was assigned instead.
+* (iii) The variable `t` is declared twice.
 
 #### Part B
 
 ```java
-double lightSpeedPerHour = 299792458 / 100 / 60;
-double starDistance = lightSpeedPerHour * 24 * 365 * 4.2;
-System.out.println((starDistance / 0.57) * 2);
+class q2b {
+    public static void main(String[] args) {
+        double lightSpeedPerHour = 299792458 / 100 / 60;
+        double starDistance = lightSpeedPerHour * 24 * 365 * 4.2;
+        System.out.println((starDistance / 0.57) * 2);
+    }
+}
 ```
 
 #### Part C
 
 ```java
-static int roll() {
-    java.util.Random r = new java.util.Random();
-    return r.nextInt(6) + 1;
-}
+class q2c {
+    static int roll() {
+        java.util.Random r = new java.util.Random();
+        return r.nextInt(6) + 1;
+    }
 
-public static void main(String[] args) {
-    int count  = 0;
-    boolean isComplete = false;
-    while (!isComplete) {
-    count++;
-    int firstRoll = roll();
-    int secondRoll = roll();
-    int thirdRoll = roll();
-    if (firstRoll == 1 && secondRoll == 1 && thirdRoll == 1) {
-        isComplete = true;
-    }        
-}
-    System.out.println(count);
+    public static void main(String[] args) {
+        int count = 0, consecutiveOnes = 0;
+        while (consecutiveOnes < 3) {
+            count++;
+            if (roll() == 1) {
+                consecutiveOnes++;
+            } else {
+                consecutiveOnes = 0;
+            }
+        }
+        System.out.println(count);
+    }
 }
 ```
 
@@ -103,33 +110,48 @@ public static void main(String[] args) {
 #### Part A
 * (i)
   * `boolean`
-  * `int`
   * `double`
+  * `int`
 
 * (ii) Yes
+
 * (iii) Yes
+
 * (iv) No
 
 #### Part B
 * (i) `cat`
-* (ii) `12`
+* (ii) Will not compile - non-static method `f(int)` cannot be referenced from a static context. However, assuming `f(int)` were to be declared as `static`, then the output would be `12`.
 
 #### Part C
 
 ```java
-public boolean checkAnagram(String str1, String str2) {
+import java.util.Arrays;
+class q3c {
+    public static void main(String[] args) {
+        if(args.length >= 2) {
+            if(isPermutation(args[0], args[1])) {
+                System.out.println("Yes");
+            } else {
+                System.out.println("No");
+            }
+        }
+    }
+    static boolean isPermutation(String str1, String str2) {
 
-    if (str1.length() != str2.length())
-      return false;
+        if (str1.length() != str2.length())
+          return false;
 
-    char[] a = str1.toCharArray();
-    char[] b = str2.toCharArray();
+        char[] a = str1.toCharArray();
+        char[] b = str2.toCharArray();
 
-    Arrays.sort(a);
-    Arrays.sort(b);
+        Arrays.sort(a);
+        Arrays.sort(b);
 
-    return Arrays.equals(a, b);
+        return Arrays.equals(a, b);
+    }
 }
+
 ```
 
 ---
@@ -140,7 +162,7 @@ public boolean checkAnagram(String str1, String str2) {
 
 * (i) `-4`
 * (ii) `-2`
-* (iii) `-1`
+* (iii) `1`
 
 #### Part B
 
@@ -164,7 +186,7 @@ class D extends C {
 
 ```java
 class Arr {
-    Object[] array;
+    private Object[] array;
     public Arr(Object[] array) {
         this.array = array;
     }
@@ -182,4 +204,4 @@ class Arr {
 ---
 
 ###### Contributors
-> These people helped to make the above answers: @hong-yi
+> These people helped to make the above answers: @hong-yi @shrmnk
